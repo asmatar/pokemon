@@ -1,5 +1,6 @@
 const suffling = document.querySelector(".shuffle-pokemon")
 const searchInput = document.querySelector(".search-pokemon")
+const loader = document.querySelector(".wrapper")
 let result;
 const fetchPokemon = async () => {
   try{
@@ -104,6 +105,7 @@ const displayPokemon = (pokemon) => {
     `
     )
   });
+  loader.style.display= "none"
 }
 
 const shuffleCard = (event) => {
@@ -116,13 +118,10 @@ const shuffleCard = (event) => {
 }
 const handleChange = (event) => {
   let currentValue = event.target.value
-  console.log(result.results)
   let newList = result.results.filter((name, index) => {
-    console.log("name", name.name)
     return name.name.includes(currentValue)
   })
   pokemonName = [...newList]
-  console.log("pokemonName", pokemonName)
   const pokemons = document.querySelector(".pokemons");
   pokemons.innerHTML= ""
   displayAllPokemonInfo(pokemonName)
