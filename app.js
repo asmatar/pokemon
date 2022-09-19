@@ -1,10 +1,8 @@
 const suffling = document.querySelector(".shuffle-pokemon")
-let cards = document.querySelectorAll(".pokemon__card")
-let result;
 const fetchPokemon = async () => {
   try{
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`);
-    result = await response.json();
+    let result = await response.json();
     displayAllPokemonInfo(result.results)
   } catch(err){
     console.error(err);
@@ -17,6 +15,7 @@ displayAllPokemonInfo = (result) => {
       let response = await fetch(url)
       pokemondetail = await response.json();
       displayPokemon(pokemondetail)
+      console.log(pokemondetail)
     } catch (error) {
       console.error(error);
     }
@@ -30,6 +29,13 @@ const displayPokemon = (pokemon) => {
     pokemons.insertAdjacentHTML(`afterbegin`,
     `
     <div class="pokemon__card">
+    <div class="container__info">
+      <p class="stat">ability : <span>${pokemon.abilities[0].ability.name}</span></p>
+      <p class="stat">weight : <span>${pokemon.weight}</span></p>
+      <p class="stat">height : <span>${pokemon.height}</span></p>
+      <p class="stat">base experience: <span> ${pokemon.base_experience}</span></p>
+      <p class="stat">hp: <span>${pokemon.stats[0].base_stat}</span></p>
+    </div>
     <img src="${pokemon.sprites.front_default}" alt="pokemon" class="pokemon__img"/>
     <p class="pokemon__index">${pokemon.id}</p>
     <p class="pokemon__name">${pokemon.name}</p>
@@ -87,8 +93,6 @@ const displayPokemon = (pokemon) => {
       case "steel":
         color = "linear-gradient(90deg, rgba(211,52,215,1) 0%, rgba(1,115,251,0.4) 100%);"
         break;
-
-
       default:
         break;
     }
@@ -103,11 +107,11 @@ const displayPokemon = (pokemon) => {
 const shuffleCard = (event) => {
   event.preventDefault()
   const cards = [...document.querySelectorAll(".pokemon__card")]
-  console.log("first")
     cards.forEach(card => {
     position = Math.floor(Math.random() * (151 - 1 + 1)) + 1
     card.style.order= position
   });
 }
+
 suffling.addEventListener("click", shuffleCard)
 window.addEventListener("load", fetchPokemon)

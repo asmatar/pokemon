@@ -79,6 +79,7 @@
   row-gap: 2.5rem;
 }
 .pokemon__card {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   row-gap: .4rem;
@@ -90,6 +91,8 @@
   animation-fill-mode: both;
   -webkit-animation-timing-function: ease-in-out;
   animation-timing-function: ease-in-out;
+  position: relative;
+  transition: all .3s ease-in-out;
 }
 .pokemon__card:hover {
   animation-name: bounce;
@@ -144,4 +147,31 @@
   text-align: center;
   text-transform: capitalize;
   font-size: .9rem;
+}
+.container__info {
+  position: absolute;
+  top: -100%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 0%;
+  justify-content: center;
+  text-align: center;
+  row-gap: .5rem;
+  background-image: linear-gradient(to bottom right, #FDFCFB, #E2D1C3);
+}
+.pokemon__card:hover .container__info{
+  height: 100%;
+  top: 0px !important;
+  transition: all .3s ease-in-out !important;
+}
+.stat {
+  /* color: rgb(39, 98, 167); */
+  color: black;
+}
+.stat span{
+  /* color: rgb(255, 204, 1); */
+  color: black;
+  font-weight: 600;
 }
