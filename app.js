@@ -11,7 +11,7 @@ const fetchPokemon = async () => {
   }
 }
 displayAllPokemonInfo = (result) => {
-  result.forEach( async (pokemon, index) => {
+  result.reverse().forEach( async (pokemon, index) => {
     let url = pokemon.url
     try {
       let response = await fetch(url)
