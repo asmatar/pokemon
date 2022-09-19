@@ -100,13 +100,14 @@ const displayPokemon = (pokemon) => {
   });
 }
 
-const sufflePokemon = (event) => {
+const shuffleCard = (event) => {
   event.preventDefault()
-  let randomPosition = Math.floor(Math.random() * (151 - 1 + 1)) + 1
-  cards.forEach(element => {
-
-    element.style.order= randomPosition
+  const cards = [...document.querySelectorAll(".pokemon__card")]
+  console.log("first")
+    cards.forEach(card => {
+    position = Math.floor(Math.random() * (151 - 1 + 1)) + 1
+    card.style.order= position
   });
 }
-suffling.addEventListener("click", sufflePokemon)
+suffling.addEventListener("click", shuffleCard)
 window.addEventListener("load", fetchPokemon)

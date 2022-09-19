@@ -137,6 +137,7 @@
 .pokemon__type {
   color: #fff;
   padding: .2rem .4rem;
+  background: transparent;
   max-width: 150px;
   width: 70px;
   border-radius: 4px;
