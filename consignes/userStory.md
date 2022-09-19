@@ -6,11 +6,3 @@
 - creer un systeme de pagination et plus tard de scroll infini
 
 - search button
-
-
-
-*** problem ***
-
-duplicate card
-
-type not the same has it sould be

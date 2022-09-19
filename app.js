@@ -11,14 +11,12 @@ const fetchPokemon = async () => {
   }
 }
 displayAllPokemonInfo = (result) => {
-  console.log(result)
   result.reverse().forEach( async (pokemon, index) => {
     let url = pokemon.url
     try {
       let response = await fetch(url)
       pokemondetail = await response.json();
       displayPokemon(pokemondetail)
-      //console.log(pokemondetail)
     } catch (error) {
       console.error(error);
     }
@@ -26,17 +24,15 @@ displayAllPokemonInfo = (result) => {
 }
 const displayPokemon = (pokemon) => {
   const pokemons = document.querySelector(".pokemons");
-  const category = document.querySelector(".pokemon__types");
-  //console.log("pokemon.types", pokemon.types)
   pokemons.insertAdjacentHTML(`afterbegin`,
   `
   <div class="pokemon__card">
   <div class="container__info">
-    <p class="stat">ability : <span>${pokemon.abilities[0].ability.name}</span></p>
-    <p class="stat">weight : <span>${pokemon.weight}</span></p>
-    <p class="stat">height : <span>${pokemon.height}</span></p>
-    <p class="stat">base experience: <span> ${pokemon.base_experience}</span></p>
-    <p class="stat">hp: <span>${pokemon.stats[0].base_stat}</span></p>
+  <p class="stat">ability : <span>${pokemon.abilities[0].ability.name}</span></p>
+  <p class="stat">weight : <span>${pokemon.weight}</span></p>
+  <p class="stat">height : <span>${pokemon.height}</span></p>
+  <p class="stat">base experience: <span> ${pokemon.base_experience}</span></p>
+  <p class="stat">hp: <span>${pokemon.stats[0].base_stat}</span></p>
   </div>
   <img src="${pokemon.sprites.front_default}" alt="pokemon" class="pokemon__img"/>
   <p class="pokemon__index">${pokemon.id}</p>
@@ -45,6 +41,7 @@ const displayPokemon = (pokemon) => {
   </div>
   `
   )
+  const category = document.querySelector(".pokemon__types");
   pokemon.types.forEach((type, index) => {
     let color;
 
@@ -56,13 +53,14 @@ const displayPokemon = (pokemon) => {
         color = "linear-gradient(90deg, rgba(255,1,1,1) 0%, rgba(215,177,48,0.4) 100%);"
         break;
       case "water":
+        color = "linear-gradient(90deg, rgba(1,74,255,1) 0%, rgba(48,149,215,0.4) 100%);"
+        break;
+        case "bug":
         color = "linear-gradient(90deg, rgba(180,252,232,1) 0%, rgba(48,251,1,0.4) 100%);"
         break;
-      case "bug":
-        color = "linear-gradient(90deg, rgba(1,74,255,1) 0%, rgba(48,149,215,0.4) 100%);"
-        break;
       case "normal":
-        color = "linear-gradient(90deg, rgba(1,74,255,1) 0%, rgba(48,149,215,0.4) 100%);"
+        color = "linear-gradient(90deg, #FDFCFB, #E2D1C3);"
+
         break;
       case "poison":
         color = "linear-gradient(90deg, rgba(145,246,0,1) 0%, rgba(198,183,86,0.4) 100%);"
@@ -117,8 +115,6 @@ const shuffleCard = (event) => {
   });
 }
 const handleChange = (event) => {
-  //let pokemonName = [...document.querySelectorAll(".pokemon__name")]
-  //console.log("pokemonName", pokemonName)
   let currentValue = event.target.value
   console.log(result.results)
   let newList = result.results.filter((name, index) => {
@@ -127,9 +123,7 @@ const handleChange = (event) => {
   })
   pokemonName = [...newList]
   console.log("pokemonName", pokemonName)
-  //console.log("newList", newList)
   displayAllPokemonInfo(pokemonName)
-
 }
 searchInput.addEventListener("input", handleChange)
 suffling.addEventListener("click", shuffleCard)
