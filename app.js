@@ -123,6 +123,8 @@ const handleChange = (event) => {
   })
   pokemonName = [...newList]
   console.log("pokemonName", pokemonName)
+  const pokemons = document.querySelector(".pokemons");
+  pokemons.innerHTML= ""
   displayAllPokemonInfo(pokemonName)
 }
 searchInput.addEventListener("input", handleChange)
