@@ -42,7 +42,6 @@
 .shuffle-pokemon,
 .search-pokemon {
   color: #fff;
-  text-transform: capitalize;
   outline: none;
   border: none;
   padding: .8rem 1.6rem;
@@ -67,6 +66,13 @@
 .search-pokemon {
   background: rgb(255, 204, 1);
   background: linear-gradient(90deg, rgba(255, 204, 1, 1) 0%, rgba(215, 205, 48, 0.7539390756302521) 100%);
+}
+.search-pokemon::placeholder {
+  background-color: transparent;
+  text-align: center;
+}
+.search-pokemon:focus::placeholder {
+  color: transparent;
 }
 .search-pokemon:hover {
   box-shadow: 0px 15px 20px rgba(255, 204, 1, .4);
@@ -167,11 +173,9 @@
   transition: all .3s ease-in-out !important;
 }
 .stat {
-  /* color: rgb(39, 98, 167); */
   color: black;
 }
 .stat span{
-  /* color: rgb(255, 204, 1); */
   color: black;
   font-weight: 600;
 }

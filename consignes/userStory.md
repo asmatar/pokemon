@@ -5,8 +5,6 @@
 
 - creer un systeme de pagination et plus tard de scroll infini
 
-- add information when hover
-
 - search button
 
 

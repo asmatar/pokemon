@@ -1,21 +1,24 @@
 const suffling = document.querySelector(".shuffle-pokemon")
+const searchInput = document.querySelector(".search-pokemon")
+let result;
 const fetchPokemon = async () => {
   try{
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`);
-    let result = await response.json();
+    result = await response.json();
     displayAllPokemonInfo(result.results)
   } catch(err){
     console.error(err);
   }
 }
 displayAllPokemonInfo = (result) => {
+  console.log(result)
   result.reverse().forEach( async (pokemon, index) => {
     let url = pokemon.url
     try {
       let response = await fetch(url)
       pokemondetail = await response.json();
       displayPokemon(pokemondetail)
-      console.log(pokemondetail)
+      //console.log(pokemondetail)
     } catch (error) {
       console.error(error);
     }
@@ -24,25 +27,26 @@ displayAllPokemonInfo = (result) => {
 const displayPokemon = (pokemon) => {
   const pokemons = document.querySelector(".pokemons");
   const category = document.querySelector(".pokemon__types");
+  //console.log("pokemon.types", pokemon.types)
+  pokemons.insertAdjacentHTML(`afterbegin`,
+  `
+  <div class="pokemon__card">
+  <div class="container__info">
+    <p class="stat">ability : <span>${pokemon.abilities[0].ability.name}</span></p>
+    <p class="stat">weight : <span>${pokemon.weight}</span></p>
+    <p class="stat">height : <span>${pokemon.height}</span></p>
+    <p class="stat">base experience: <span> ${pokemon.base_experience}</span></p>
+    <p class="stat">hp: <span>${pokemon.stats[0].base_stat}</span></p>
+  </div>
+  <img src="${pokemon.sprites.front_default}" alt="pokemon" class="pokemon__img"/>
+  <p class="pokemon__index">${pokemon.id}</p>
+  <p class="pokemon__name">${pokemon.name}</p>
+  <div class="pokemon__types"></div>
+  </div>
+  `
+  )
   pokemon.types.forEach((type, index) => {
     let color;
-    pokemons.insertAdjacentHTML(`afterbegin`,
-    `
-    <div class="pokemon__card">
-    <div class="container__info">
-      <p class="stat">ability : <span>${pokemon.abilities[0].ability.name}</span></p>
-      <p class="stat">weight : <span>${pokemon.weight}</span></p>
-      <p class="stat">height : <span>${pokemon.height}</span></p>
-      <p class="stat">base experience: <span> ${pokemon.base_experience}</span></p>
-      <p class="stat">hp: <span>${pokemon.stats[0].base_stat}</span></p>
-    </div>
-    <img src="${pokemon.sprites.front_default}" alt="pokemon" class="pokemon__img"/>
-    <p class="pokemon__index">${pokemon.id}</p>
-    <p class="pokemon__name">${pokemon.name}</p>
-    <div class="pokemon__types"></div>
-    </div>
-    `
-    )
 
     switch (type.type.name) {
       case "grass":
@@ -112,6 +116,21 @@ const shuffleCard = (event) => {
     card.style.order= position
   });
 }
+const handleChange = (event) => {
+  //let pokemonName = [...document.querySelectorAll(".pokemon__name")]
+  //console.log("pokemonName", pokemonName)
+  let currentValue = event.target.value
+  console.log(result.results)
+  let newList = result.results.filter((name, index) => {
+    console.log("name", name.name)
+    return name.name.includes(currentValue)
+  })
+  pokemonName = [...newList]
+  console.log("pokemonName", pokemonName)
+  //console.log("newList", newList)
+  displayAllPokemonInfo(pokemonName)
 
+}
+searchInput.addEventListener("input", handleChange)
 suffling.addEventListener("click", shuffleCard)
 window.addEventListener("load", fetchPokemon)
