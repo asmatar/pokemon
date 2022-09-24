@@ -2,22 +2,27 @@ const suffling = document.querySelector(".shuffle-pokemon")
 const searchInput = document.querySelector(".search-pokemon")
 const loader = document.querySelector(".wrapper")
 let result;
+//let resultSlice;
 const fetchPokemon = async () => {
   try{
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151`);
     result = await response.json();
-    displayAllPokemonInfo(result.results)
+    console.log("result.results", result.results)
+    //resultSlice = result.results.reverse()/* .slice(130, 151) */
+    displayAllPokemonInfo(result.results.reverse())
   } catch(err){
     console.error(err);
   }
 }
 displayAllPokemonInfo = (result) => {
-  result.reverse().forEach( async (pokemon, index) => {
+  console.log("resultat slicer", result)
+  result.forEach( async (pokemon, index) => {
     let url = pokemon.url
     try {
       let response = await fetch(url)
       pokemondetail = await response.json();
       displayPokemon(pokemondetail)
+      console.log(pokemondetail)
     } catch (error) {
       console.error(error);
     }
@@ -126,6 +131,41 @@ const handleChange = (event) => {
   pokemons.innerHTML= ""
   displayAllPokemonInfo(pokemonName)
 }
+
+let index = 21
+const addPoke = () => {
+  const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+  //console.log("index", index)
+  if(clientHeight + scrollTop >= scrollHeight -20) {
+    if (index > 151) {
+      return
+    }
+    console.log(result.results)
+    /* const newPokeOnScroll = result.results.slice(index, index + 6).reverse() */
+    //const newPokeOnScroll = resultSlice.concat(result.results.slice(index, index + 6).reverse())
+    console.log("result.results", result.results)
+    const newPokeOnScroll = resultSlice.reverse().concat(result.results.reverse().slice(index, index + 6))
+
+    index = index + 6
+    console.log("new index", index)
+    resultSlice = newPokeOnScroll
+    console.log("newPokeOnScroll", newPokeOnScroll.reverse())
+    //result = result.concat(newPokeOnScroll)
+    //console.log(result)
+
+/*     let newPokeArray = Array.prototype.push.apply(result,newPokeOnScroll);
+    console.log("newPokeArray", newPokeArray)
+    console.log("newPokeOnScroll", newPokeOnScroll)
+    let newDisplay = result.push(newPokeOnScroll) */
+    //console.log("newDisplay", newDisplay)
+  const pokemons = document.querySelector(".pokemons");
+
+    pokemons.innerHTML= ""
+
+    displayAllPokemonInfo(newPokeOnScroll)
+  }
+}
+//window.addEventListener("scroll", addPoke)
 searchInput.addEventListener("input", handleChange)
 suffling.addEventListener("click", shuffleCard)
-window.addEventListener("load", fetchPokemon)
+fetchPokemon()

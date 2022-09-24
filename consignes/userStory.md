@@ -1,5 +1,3 @@
-***page main***
+- quand on filtre, ca ajoute les cartes a celles qu'on a deja
 
-- creer un loader quand ca charge les cartes
-
-- creer un systeme de pagination et plus tard de scroll infini
+- scroll infiny
