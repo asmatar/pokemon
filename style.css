@@ -35,6 +35,11 @@
 .logo-pokemon {
   height: 200px;
 }
+@media screen and (max-width: 600px) {
+  .logo-pokemon {
+    height: 100px;
+  }
+}
 .cta {
   display: flex;
   column-gap: 1rem;
@@ -51,6 +56,12 @@
   cursor: pointer;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
   transition: .2s all ease-in-out;
+}
+@media screen and (max-width: 600px) {
+  .shuffle-pokemon,
+  .search-pokemon {
+    width: 150px;
+  }
 }
 .shuffle-pokemon:hover,
 .search-pokemon:hover {
@@ -80,15 +91,20 @@
 .pokemons {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   column-gap: .6rem;
+  padding: 0 1rem;
   row-gap: 2.5rem;
+}
+@media only screen and (max-width: 425px) {
+  .pokemons {
+    padding: 0 3rem;
+  }
 }
 .pokemon__card {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   flex-basis: 150px;
   row-gap: .4rem;
   background-color: rgba(246, 245, 243,.4);
