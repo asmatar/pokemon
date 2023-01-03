@@ -88,6 +88,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  flex-basis: 150px;
   row-gap: .4rem;
   background-color: rgba(246, 245, 243,.4);
   cursor: pointer;
@@ -180,17 +182,11 @@
   font-weight: 600;
 }
 
-
-
-
-
 .wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -50%);
-
 }
 
 .pokeball {
